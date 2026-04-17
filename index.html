@@ -52,7 +52,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.15)}
 .page{display:none}.page.active{display:block}
 
 /* ── HERO (dark) ── */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--dark);padding-top:6rem}
+.hero{min-height:75vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--dark);padding-top:6rem}
 .hero::before{content:'';position:absolute;top:-30%;right:-20%;width:700px;height:700px;background:radial-gradient(circle,rgba(55,138,221,.08) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:-20%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(93,202,165,.06) 0%,transparent 70%);pointer-events:none}
 .hero-content{position:relative;z-index:2;max-width:740px}
@@ -179,8 +179,8 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
         <span class="nav-tagline">Quality Life, Quality Work</span>
       </a>
       <div class="nav-right">
-        <a href="#approach-section" class="link">Our Approach</a>
-        <a href="#clients-section" class="link">Clients</a>
+        <a href="#approach-section" class="link" onclick="goTo('main','approach-section');return false">Our Approach</a>
+        <a href="#clients-section" class="link" onclick="goTo('main','clients-section');return false">Clients</a>
         <a href="https://app.reclaim.ai/m/zen-atikin-booking-page" target="_blank" class="btn btn-primary">Contact Us</a>
         <button class="hamburger" aria-label="Menu">&#9776;</button>
       </div>
@@ -411,7 +411,7 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
 </section>
 
 <!-- Advisory & Audit -->
-<section class="section" style="background:var(--bg)">
+<section class="section" id="svc-advisory" style="background:var(--bg)">
   <div class="container">
     <span class="badge reveal">Advisory & Audit</span>
     <h2 class="section-title reveal">Risk, compliance, and<br>assurance <em>services</em>.</h2>
@@ -452,7 +452,7 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
 </section>
 
 <!-- Technology & Cyber -->
-<section class="section" style="background:var(--bg-alt)">
+<section class="section" id="svc-tech" style="background:var(--bg-alt)">
   <div class="container">
     <span class="badge reveal">Technology & Cybersecurity</span>
     <h2 class="section-title reveal">Secure, modern, and<br><em>resilient</em> infrastructure.</h2>
@@ -493,7 +493,7 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
 </section>
 
 <!-- Engineering & Data -->
-<section class="section" style="background:var(--bg)">
+<section class="section" id="svc-engineering" style="background:var(--bg)">
   <div class="container">
     <span class="badge reveal">Engineering & Data</span>
     <h2 class="section-title reveal">Modern technology that<br>drives <em>decisions</em>.</h2>
@@ -534,7 +534,7 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
 </section>
 
 <!-- Platform & Managed Services -->
-<section class="section" style="background:var(--bg-alt)">
+<section class="section" id="svc-platform" style="background:var(--bg-alt)">
   <div class="container">
     <span class="badge reveal">Platform & Managed Services</span>
     <h2 class="section-title reveal">Enterprise platforms,<br><em>expertly</em> delivered.</h2>
@@ -803,12 +803,16 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
     <div class="footer-links">
       <div class="footer-col">
         <h5>Services</h5>
-        <a href="#" onclick="switchPage('main');return false">Audit & Advisory</a>
-        <a href="#" onclick="switchPage('services');return false">All Services</a>
-        <a href="#" onclick="switchPage('main');return false">GRC & Compliance</a>
-        <a href="#" onclick="switchPage('main');return false">IT & Cybersecurity</a>
-        <a href="#" onclick="switchPage('main');return false">Data & Analytics</a>
+        <a href="#" onclick="goTo('services','svc-advisory');return false">Advisory & Audit</a>
+        <a href="#" onclick="goTo('services','svc-tech');return false">Technology & Cyber</a>
+        <a href="#" onclick="goTo('services','svc-engineering');return false">Engineering & AI</a>
+        <a href="#" onclick="goTo('services','svc-platform');return false">Platforms & Managed Services</a>
         <a href="#" onclick="switchPage('workiva');return false">Workiva Partner</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#" onclick="goTo('main','approach-section');return false">Our Approach</a>
+        <a href="#" onclick="goTo('main','clients-section');return false">Clients</a>
         <a href="#" onclick="switchPage('leadership');return false">Leadership</a>
       </div>
       <div class="footer-col">
@@ -817,6 +821,11 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
         <a href="mailto:ketan@zenatikin.com">ketan@zenatikin.com</a>
         <a href="tel:+14079909365">(407) 990-9365</a>
         <a href="tel:+17033177601">(703) 317-7601</a>
+      </div>
+      <div class="footer-col">
+        <h5>Inquiries</h5>
+        <a href="mailto:proposals@zenatikin.com">proposals@zenatikin.com</a>
+        <a href="mailto:accounting@zenatikin.com">accounting@zenatikin.com</a>
       </div>
     </div>
   </div>
@@ -832,6 +841,10 @@ function switchPage(name){
   document.querySelector(`.page-tab[data-page="${name}"]`).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(()=>{document.querySelectorAll('#page-'+name+' .reveal:not(.visible)').forEach(el=>obs.observe(el))},100);
+}
+function goTo(page,sectionId){
+  switchPage(page);
+  setTimeout(()=>{const el=document.getElementById(sectionId);if(el)el.scrollIntoView({behavior:'smooth'})},200);
 }
 document.querySelectorAll('.page-tab').forEach(tab=>{tab.addEventListener('click',()=>switchPage(tab.dataset.page))});
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.12});
