@@ -33,26 +33,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-seco
 
 /* ── NAV (dark) ── */
 nav{position:fixed;top:0;left:0;width:100%;z-index:100;background:var(--dark);transition:box-shadow .3s}
-nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.15)}
+nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.15);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .nav-top{padding:1rem 0}
 .nav-top .container{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-.nav-logo svg{width:36px;height:36px}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
 .nav-logo span{font-weight:600;font-size:1.1rem;letter-spacing:.5px}
 .nav-logo .zen{color:var(--aqua)}.nav-logo .atk{color:var(--blue)}
-.nav-tagline{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--aqua);font-weight:400;font-style:italic;opacity:1;margin-left:.5rem;transform:scale(.65);transform-origin:left center;white-space:nowrap}
+.nav-tagline{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--aqua);font-weight:400;font-style:italic;opacity:1;margin-left:.5rem;transform:scale(.65);transform-origin:left center;white-space:nowrap;display:inline-block;max-width:0;overflow:visible}
 .nav-right{display:flex;align-items:center;gap:2rem}
 .nav-right a.link{color:#8B91A0;text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
 .nav-right a.link:hover{color:var(--white)}
 .hamburger{display:none;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer}
-.page-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.08);padding:0 2rem;max-width:1264px;margin:0 auto}
-.page-tab{padding:.7rem 1.4rem;font-size:.82rem;font-weight:600;letter-spacing:.3px;color:#8B91A0;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.page-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.08);padding:0 2rem;max-width:1200px;margin:0 auto;-webkit-overflow-scrolling:touch}
+.page-tab{padding:.7rem 1.4rem;font-size:.82rem;font-weight:600;letter-spacing:.3px;color:#8B91A0;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;white-space:nowrap}
 .page-tab:hover{color:#ccc}
 .page-tab.active{color:var(--aqua);border-bottom-color:var(--aqua)}
 .page{display:none}.page.active{display:block}
 
+/* Scroll offset for fixed nav */
+[id]{scroll-margin-top:7rem}
+
 /* ── HERO (dark) ── */
-.hero{min-height:75vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--dark);padding-top:6rem}
+.hero{min-height:75vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--dark);padding:8rem 0 4rem}
 .hero::before{content:'';position:absolute;top:-30%;right:-20%;width:700px;height:700px;background:radial-gradient(circle,rgba(55,138,221,.08) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:-20%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(93,202,165,.06) 0%,transparent 70%);pointer-events:none}
 .hero-content{position:relative;z-index:2;max-width:740px}
@@ -123,8 +126,11 @@ h1.hero-title em{font-style:italic;color:var(--aqua)}
 .cta-section .section-sub{margin:0 auto 2.5rem}
 
 /* ── WORKIVA HERO (dark) ── */
-.wk-hero{padding:10rem 0 5rem;position:relative;overflow:hidden;background:var(--dark)}
+.wk-hero{padding:8rem 0 4rem;position:relative;overflow:hidden;background:var(--dark)}
 .wk-hero::before{content:'';position:absolute;top:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(55,138,221,.1) 0%,transparent 70%);pointer-events:none}
+.wk-badge{position:absolute;top:50%;right:6%;transform:translateY(-50%);z-index:3;background:linear-gradient(135deg,rgba(55,138,221,.15),rgba(93,202,165,.1));border:1px solid rgba(93,202,165,.3);border-radius:16px;padding:1.5rem 1.8rem;text-align:center;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.wk-badge-icon{font-size:1.8rem;margin-bottom:.5rem;color:var(--aqua)}
+.wk-badge-text{font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--aqua);line-height:1.5}
 .wk-hero .hero-tag{color:var(--aqua);opacity:1;animation:none}
 .wk-hero .hero-title{color:var(--white);opacity:1;animation:none}
 .wk-hero .hero-desc{color:#8B91A0;opacity:1;animation:none}
@@ -152,18 +158,26 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
 
 @media(max-width:900px){
   .nav-right .link{display:none}.hamburger{display:block}
+  .nav-tagline{display:none}
   .hero-grid{display:none}
+  .wk-badge{display:none}
   .stats .container{grid-template-columns:repeat(2,1fr)}
   .goal-grid{grid-template-columns:1fr;gap:2rem}
   .approach-grid{grid-template-columns:1fr 1fr}
   .footer-links{flex-direction:column;gap:1.5rem}
-  .page-tabs{overflow-x:auto}
+  .page-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .hero{min-height:auto;padding:7rem 0 3rem}
+  .wk-hero{padding:7rem 0 3rem}
 }
 @media(max-width:600px){
   .services-grid,.wk-services-grid{grid-template-columns:1fr}
   .stats .container{grid-template-columns:1fr}
   .section{padding:4.5rem 0}
   .approach-grid{grid-template-columns:1fr}
+  .hero{padding:6.5rem 0 2.5rem}
+  .wk-hero{padding:6.5rem 0 2.5rem}
+  h1.hero-title{font-size:clamp(2rem,8vw,2.8rem)}
+  .container{padding:0 1.2rem}
 }
 </style>
 </head>
@@ -580,7 +594,11 @@ footer .container{display:flex;justify-content:space-between;align-items:flex-st
 <div class="page" id="page-workiva">
 
 <!-- Workiva Hero (dark) -->
-<section class="wk-hero">
+<section class="wk-hero" style="position:relative">
+  <div class="wk-badge">
+    <div class="wk-badge-icon">★</div>
+    <div class="wk-badge-text">Leading Public Sector<br>Implementation Partner</div>
+  </div>
   <div class="container">
     <div style="max-width:680px;position:relative;z-index:2">
       <div class="hero-tag" style="opacity:1;animation:none"><span>Workiva Implementation Partner</span></div>
